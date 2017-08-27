@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="6GD-Eg-c2Y">
+    <device id="retina5_5" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Start View Controller-->
+        <scene sceneID="Ycd-v6-wcT">
+            <objects>
+                <viewController id="zEX-TT-8Ob" customClass="StartViewController" customModule="VCHOnSwift" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="sle-Z6-21h"/>
+                        <viewControllerLayoutGuide type="bottom" id="1kW-gu-vbV"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="iGa-xt-qy6">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="center" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lBJ-L1-43Z">
+                                <rect key="frame" x="82" y="561" width="250" height="33"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="250" id="VeJ-fM-5c1"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Thonburi-Bold" family="Thonburi" pointSize="16"/>
+                                <state key="normal" title="Авторизация через Вконтакте"/>
+                                <connections>
+                                    <action selector="authorizeVK:" destination="zEX-TT-8Ob" eventType="touchUpInside" id="kRU-nY-wZO"/>
+                                </connections>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="VbU-ES-96K">
+                                <rect key="frame" x="167" y="431" width="80" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="3xK-AL-8qo"/>
+                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="50" id="nah-q9-4fD"/>
+                                    <constraint firstAttribute="width" constant="80" id="rrr-8O-y5z"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8rh-sE-HY1">
+                                <rect key="frame" x="354" y="30" width="30" height="33"/>
+                                <fontDescription key="fontDescription" name="Thonburi-Bold" family="Thonburi" pointSize="16"/>
+                                <state key="normal" title="Exit"/>
+                                <connections>
+                                    <action selector="exitAction:" destination="zEX-TT-8Ob" eventType="touchUpInside" id="qGH-Bg-9Nu"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ueH-rq-Aw0">
+                                <rect key="frame" x="82" y="604" width="250" height="33"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="250" id="CaS-dY-U7v"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Thonburi-Bold" family="Thonburi" pointSize="16"/>
+                                <state key="normal" title="Продолжить без авторизации"/>
+                                <connections>
+                                    <action selector="noneAuthorize:" destination="zEX-TT-8Ob" eventType="touchUpInside" id="4Dd-F2-OWp"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="8rh-sE-HY1" firstAttribute="top" secondItem="sle-Z6-21h" secondAttribute="bottom" constant="10" id="1Io-oa-5vC"/>
+                            <constraint firstItem="1kW-gu-vbV" firstAttribute="top" secondItem="ueH-rq-Aw0" secondAttribute="bottom" constant="50" id="1fY-Pq-SR6"/>
+                            <constraint firstItem="VbU-ES-96K" firstAttribute="centerX" secondItem="iGa-xt-qy6" secondAttribute="centerX" id="8w5-JH-Ugu"/>
+                            <constraint firstItem="ueH-rq-Aw0" firstAttribute="top" secondItem="lBJ-L1-43Z" secondAttribute="bottom" constant="10" id="NpT-qt-PgY"/>
+                            <constraint firstItem="ueH-rq-Aw0" firstAttribute="centerX" secondItem="iGa-xt-qy6" secondAttribute="centerX" id="Rde-FK-nnP"/>
+                            <constraint firstItem="lBJ-L1-43Z" firstAttribute="centerX" secondItem="iGa-xt-qy6" secondAttribute="centerX" id="Tqr-b4-P1D"/>
+                            <constraint firstItem="ueH-rq-Aw0" firstAttribute="width" secondItem="lBJ-L1-43Z" secondAttribute="width" id="cw2-Jq-2hj"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="8rh-sE-HY1" secondAttribute="trailing" constant="10" id="q0c-EX-pZ1"/>
+                            <constraint firstItem="lBJ-L1-43Z" firstAttribute="top" secondItem="VbU-ES-96K" secondAttribute="bottom" constant="80" id="uEy-nb-eRy"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="YfP-1K-ju2"/>
+                    <connections>
+                        <outlet property="exitButton" destination="8rh-sE-HY1" id="37o-jK-kla"/>
+                        <outlet property="imageView" destination="VbU-ES-96K" id="a1v-ud-680"/>
+                        <outlet property="noneEnter" destination="ueH-rq-Aw0" id="xhP-92-3zf"/>
+                        <outlet property="vkEnter" destination="lBJ-L1-43Z" id="tdL-aF-VlW"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9Sx-zB-E0W" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3701.25" y="-583.75"/>
+        </scene>
+        <!--Start-->
+        <scene sceneID="BWo-zE-g5x">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="6GD-Eg-c2Y" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Start" id="Mf2-vO-EhA"/>
+                    <toolbarItems/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="aPA-wJ-iIq">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="zEX-TT-8Ob" kind="relationship" relationship="rootViewController" id="8kX-Xm-WFC"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IRx-XK-yPD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2858" y="-582"/>
+        </scene>
+    </scenes>
+</document>

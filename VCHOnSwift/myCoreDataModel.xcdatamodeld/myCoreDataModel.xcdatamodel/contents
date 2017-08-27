@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="12141" systemVersion="16F73" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Groupa" representedClassName=".Groupa" syncable="YES" codeGenerationType="class">
+        <attribute name="color" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="placesRelation" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Placa" inverseName="fromGroup" inverseEntity="Placa" syncable="YES"/>
+        <relationship name="viewersRelation" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Viewer" inverseName="fromGroup" inverseEntity="Viewer" syncable="YES"/>
+    </entity>
+    <entity name="Placa" representedClassName=".Placa" syncable="YES" codeGenerationType="class">
+        <attribute name="num" optional="YES" attributeType="Decimal" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="row" optional="YES" attributeType="Decimal" defaultValueString="0.0" syncable="YES"/>
+        <relationship name="fromGroup" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Groupa" inverseName="placesRelation" inverseEntity="Groupa" syncable="YES"/>
+    </entity>
+    <entity name="Viewer" representedClassName=".Viewer" syncable="YES" codeGenerationType="class">
+        <attribute name="first_name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="last_name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="fromGroup" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Groupa" inverseName="viewersRelation" inverseEntity="Groupa" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Groupa" positionX="-153" positionY="-126" width="128" height="103"/>
+        <element name="Placa" positionX="43" positionY="-43" width="128" height="88"/>
+        <element name="Viewer" positionX="-344" positionY="-84" width="128" height="88"/>
+    </elements>
+</model>

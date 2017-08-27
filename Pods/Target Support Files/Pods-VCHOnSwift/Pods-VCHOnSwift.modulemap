@@ -1,0 +1,6 @@
+framework module Pods_VCHOnSwift {
+  umbrella header "Pods-VCHOnSwift-umbrella.h"
+
+  export *
+  module * { export * }
+}
