@@ -38,7 +38,7 @@ class LeftSector {
         
         var shiftNum = Array(repeating: 0, count: width*height)
         
-        for p in field {
+        for var p in field {
             for l in limitation {
                 if p.isPlaceEqualTo(place: l) {
                     lim = true

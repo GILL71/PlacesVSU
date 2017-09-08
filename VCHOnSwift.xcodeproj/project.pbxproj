@@ -16,6 +16,7 @@
 		4B5A7C8F1ED82C3100E6E4ED /* GroupTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5A7C8E1ED82C3100E6E4ED /* GroupTableViewController.swift */; };
 		4B5A7C981ED88CCE00E6E4ED /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5A7C971ED88CCE00E6E4ED /* DataController.swift */; };
 		4B5A7C9A1EE2B14100E6E4ED /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5A7C991EE2B14100E6E4ED /* Parser.swift */; };
+		4B5BDDC31F5E9B0E00EAAF9A /* PlaceButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5BDDC21F5E9B0E00EAAF9A /* PlaceButton.swift */; };
 		4B5F3B111E9F723900183540 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5F3B101E9F723900183540 /* AppDelegate.swift */; };
 		4B5F3B161E9F723900183540 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4B5F3B141E9F723900183540 /* Main.storyboard */; };
 		4B5F3B181E9F723900183540 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B5F3B171E9F723900183540 /* Assets.xcassets */; };
@@ -35,6 +36,9 @@
 		4BDFE1291F13814000185250 /* LoadingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDFE1281F13814000185250 /* LoadingTableViewCell.swift */; };
 		4BDFE12B1F13860500185250 /* MessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDFE12A1F13860500185250 /* MessageTableViewCell.swift */; };
 		4BEC42C71F50C7680091ECD3 /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BEC42C61F50C7680091ECD3 /* DataStore.swift */; };
+		4BEC42C91F52F60F0091ECD3 /* HallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BEC42C81F52F60F0091ECD3 /* HallViewController.swift */; };
+		4BEC42CB1F5300A80091ECD3 /* ButtonActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BEC42CA1F5300A80091ECD3 /* ButtonActions.swift */; };
+		4BEC42CD1F5332050091ECD3 /* PlacesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BEC42CC1F5332050091ECD3 /* PlacesManager.swift */; };
 		8DC85D03AF27489099273176 /* Pods_VCHOnSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF20293CA5BCE99DFF9ADF93 /* Pods_VCHOnSwift.framework */; };
 /* End PBXBuildFile section */
 
@@ -62,6 +66,7 @@
 		4B5A7C8E1ED82C3100E6E4ED /* GroupTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupTableViewController.swift; sourceTree = "<group>"; };
 		4B5A7C971ED88CCE00E6E4ED /* DataController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		4B5A7C991EE2B14100E6E4ED /* Parser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
+		4B5BDDC21F5E9B0E00EAAF9A /* PlaceButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceButton.swift; sourceTree = "<group>"; };
 		4B5F3B0D1E9F723900183540 /* VCHOnSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VCHOnSwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B5F3B101E9F723900183540 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4B5F3B151E9F723900183540 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -83,6 +88,9 @@
 		4BDFE1281F13814000185250 /* LoadingTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingTableViewCell.swift; sourceTree = "<group>"; };
 		4BDFE12A1F13860500185250 /* MessageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageTableViewCell.swift; sourceTree = "<group>"; };
 		4BEC42C61F50C7680091ECD3 /* DataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; };
+		4BEC42C81F52F60F0091ECD3 /* HallViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HallViewController.swift; sourceTree = "<group>"; };
+		4BEC42CA1F5300A80091ECD3 /* ButtonActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonActions.swift; sourceTree = "<group>"; };
+		4BEC42CC1F5332050091ECD3 /* PlacesManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlacesManager.swift; sourceTree = "<group>"; };
 		CF20293CA5BCE99DFF9ADF93 /* Pods_VCHOnSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VCHOnSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E92D07410382607955D041C5 /* Pods-VCHOnSwift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VCHOnSwift.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VCHOnSwift/Pods-VCHOnSwift.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -128,6 +136,7 @@
 				4B5A7C8E1ED82C3100E6E4ED /* GroupTableViewController.swift */,
 				4BD3B7D21ECC3D92005C8D08 /* ListViewController.swift */,
 				4BD3B7D51ED2C078005C8D08 /* StartViewController.swift */,
+				4BEC42C81F52F60F0091ECD3 /* HallViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -161,7 +170,10 @@
 				4B5F3B1C1E9F723900183540 /* Info.plist */,
 				4B3327721F3DD4CF00303A69 /* Controllers */,
 				4B5A7C891ED6D9DE00E6E4ED /* ServerManager.swift */,
+				4BEC42CC1F5332050091ECD3 /* PlacesManager.swift */,
+				4B5BDDC21F5E9B0E00EAAF9A /* PlaceButton.swift */,
 				4B5A7C971ED88CCE00E6E4ED /* DataController.swift */,
+				4BEC42CA1F5300A80091ECD3 /* ButtonActions.swift */,
 				4B5A7C991EE2B14100E6E4ED /* Parser.swift */,
 				4BDFE1181F0BC47F00185250 /* Constants.swift */,
 			);
@@ -357,14 +369,18 @@
 				4B5A7C8A1ED6D9DE00E6E4ED /* ServerManager.swift in Sources */,
 				4BD3B7D61ED2C078005C8D08 /* StartViewController.swift in Sources */,
 				4BD3B7D31ECC3D92005C8D08 /* ListViewController.swift in Sources */,
+				4BEC42CD1F5332050091ECD3 /* PlacesManager.swift in Sources */,
 				4B5F3B111E9F723900183540 /* AppDelegate.swift in Sources */,
+				4B5BDDC31F5E9B0E00EAAF9A /* PlaceButton.swift in Sources */,
 				4B5A7C981ED88CCE00E6E4ED /* DataController.swift in Sources */,
 				4BEC42C71F50C7680091ECD3 /* DataStore.swift in Sources */,
 				4B5A7C8F1ED82C3100E6E4ED /* GroupTableViewController.swift in Sources */,
 				4BDFE1291F13814000185250 /* LoadingTableViewCell.swift in Sources */,
 				4BDFE12B1F13860500185250 /* MessageTableViewCell.swift in Sources */,
+				4BEC42CB1F5300A80091ECD3 /* ButtonActions.swift in Sources */,
 				4BDFE11F1F10C1FA00185250 /* SliderTableViewCell.swift in Sources */,
 				4BD3B7CB1ECA481C005C8D08 /* LeftSector.swift in Sources */,
+				4BEC42C91F52F60F0091ECD3 /* HallViewController.swift in Sources */,
 				4BDFE1211F1124D900185250 /* GroupTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

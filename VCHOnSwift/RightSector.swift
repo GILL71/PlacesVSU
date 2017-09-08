@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+/*
 class RightSector {
     
     var places = [Place]()
@@ -53,4 +53,4 @@ class RightSector {
             lim = false
         }
     }
-}
+}*/

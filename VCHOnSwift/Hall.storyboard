@@ -9,10 +9,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Draw-->
+        <!--Hall-->
         <scene sceneID="IGu-0l-yVN">
             <objects>
-                <viewController id="4Cz-zG-2SB" customClass="DrawViewController" customModule="VCHOnSwift" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Hall" id="4Cz-zG-2SB" customClass="HallViewController" customModule="VCHOnSwift" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Qpj-mF-aRL"/>
                         <viewControllerLayoutGuide type="bottom" id="wNq-1Y-uTr"/>
@@ -52,16 +52,15 @@
                             <constraint firstAttribute="trailing" secondItem="saI-1U-RU1" secondAttribute="trailing" id="pRS-8Q-OTU"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Draw" id="UTq-j8-cSZ">
-                        <barButtonItem key="leftBarButtonItem" systemItem="edit" id="gbB-I0-LQB">
+                    <navigationItem key="navigationItem" title="Выберите места" id="UTq-j8-cSZ">
+                        <barButtonItem key="leftBarButtonItem" title="Изменить" id="Xl5-jb-gR7">
                             <connections>
-                                <action selector="editMode:" destination="4Cz-zG-2SB" id="lrI-kq-LtJ"/>
+                                <action selector="changeAction:" destination="4Cz-zG-2SB" id="gIF-Ao-prf"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="U1Z-X2-p6h">
-                            <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <barButtonItem key="rightBarButtonItem" title="Создать" id="twd-2u-NL6">
                             <connections>
-                                <action selector="addMode:" destination="4Cz-zG-2SB" id="yAh-BY-bhj"/>
+                                <action selector="createAction:" destination="4Cz-zG-2SB" id="B6Q-fr-7FQ"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -69,8 +68,6 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="1000" height="736"/>
                     <connections>
-                        <outlet property="addButton" destination="U1Z-X2-p6h" id="Z9x-JV-nIz"/>
-                        <outlet property="editButton" destination="gbB-I0-LQB" id="LT5-Uj-Y7I"/>
                         <outlet property="scrollView" destination="saI-1U-RU1" id="lbe-rC-1iv"/>
                         <outlet property="testView" destination="ges-py-auo" id="gna-iK-kSF"/>
                         <segue destination="rJ3-Oh-f3X" kind="show" identifier="segue_create_group" id="RP0-cR-HKu"/>

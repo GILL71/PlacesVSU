@@ -17,10 +17,10 @@ class ServerManager {
     var sdkInstance: VKSdk?
     let parser = Parser()
     
-    var messages = [String]()
+    var offsetMessages = 0
     let numberOfMessages = 6
     let numberOfFriends = 11
-    var friends = [Viewer]()
+    var offsetFriends = 0
     
     func enterVK () {
         sdkInstance = VKSdk.initialize(withAppId: VK_APP_ID)
@@ -44,30 +44,38 @@ class ServerManager {
         }
     }
     
-    func loadMessages() {
-        let messagesParams = ["access_token":VKSdk.accessToken().accessToken, "out": "1", "count":numberOfMessages, "filters":"0", "offset": messages.count + 1] as [AnyHashable : Any]
-        
+    func loadMessages(completionHandler: @escaping (_ messages: [String]) -> ()) {
+        //let messagesParams = ["access_token":VKSdk.accessToken().accessToken, "out": "1", "count": numberOfMessages, "filters":"0", "offset": offsetFriends, "time_offset": 0] as [AnyHashable : Any]
+        let messagesParams = ["access_token": VKSdk.accessToken().accessToken, "offset": offsetFriends, "time_offset": 0, "count": numberOfMessages, "filters":0] as [AnyHashable : Any]
+        var messages = [String]()
         let mRequest: VKRequest = VKRequest.init(method: "messages.get", parameters: messagesParams)
         mRequest.execute(resultBlock: { (response) in
-            let ms = self.parser.parseMessages(json: response?.json as! [String : Any], numberOfMessages: self.numberOfMessages)
-            for message in ms {
-                self.messages.append(message)
+            let parseMessages = self.parser.parseMessages(json: response?.json as! [String : Any],
+                                                          numberOfMessages: self.numberOfMessages)
+            for message in parseMessages {
+                messages.append(message)
             }
+            completionHandler(messages)
         }) { (error) in
             print("error messages response - \(String(describing: error?.localizedDescription))")
         }
+        self.offsetMessages += self.numberOfMessages
     }
     
-    func loadFriends() {
-        let friendsParams = ["access_token": VKSdk.accessToken().accessToken, "user_id": "44778251", "order":"hints", "fields": "photo_200", "count": numberOfFriends, "offset": friends.count + 1] as [AnyHashable : Any]
+    func loadFriends(completionHandler: @escaping (_ friends: [Viewer]) -> ()) {
+        let friendsParams = ["access_token": VKSdk.accessToken().accessToken, "user_id": "44778251", "order":"hints", "fields": "photo_200", "count": numberOfFriends, "offset": offsetFriends] as [AnyHashable : Any]
+        var friends = [Viewer]()
         let fRequest: VKRequest = VKRequest.init(method: "friends.get", parameters: friendsParams)
         fRequest.execute(resultBlock: { (response) in
-            let fr = self.parser.parseFriends(json: response?.json as! [String : Any], numberOfFriends: self.numberOfFriends)
-            for friend in fr {
-                self.friends.append(friend)
+            let parseFriends = self.parser.parseFriends(json: response?.json as! [String : Any],
+                                                        numberOfFriends: self.numberOfFriends)
+            for friend in parseFriends {
+                friends.append(friend)
             }
+            completionHandler(friends)
         }) { (error) in
             print("error messages response - \(String(describing: error?.localizedDescription))")
         }
+        self.offsetFriends += self.numberOfFriends
     }
 }

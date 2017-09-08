@@ -39,9 +39,9 @@ class RealmViewer: Object {
 }
 
 class ViewerRealmDataSource: DataSource {
-    func update(by id: String, with name: String) {
-        <#code#>
-    }
+    //func update(by id: String, with name: String) {
+        
+    //}
     
     typealias T = Viewer
     private let realm = try! Realm()
@@ -96,10 +96,14 @@ struct Place {
     var row: Int
     var num: Int
     var x: Int {
-        return row
+        return num
     }
     var y: Int {
-        return num
+        return row
+    }
+    
+    func isPlaceEqualTo(place:Place) -> Bool {
+        return place.num == self.num && place.row == self.row
     }
 }
 
@@ -125,9 +129,8 @@ class RealmPlace: Object {
 }
 
 class PlaceRealmDataSource: DataSource {
-    func update(by id: String, with name: String) {
-        <#code#>
-    }
+    //func update(by id: String, with name: String) {
+    //}
     
     typealias T = Place
     private let realm = try! Realm()
@@ -212,9 +215,8 @@ class RealmGroup: Object {
 }
 
 class GroupRealmDataSource: DataSource {
-    func update(by id: String, with name: String) {
-        <#code#>
-    }
+    //func update(by id: String, with name: String) {
+    //}
     
     typealias T = Group
     private let realm = try! Realm()
@@ -269,7 +271,7 @@ protocol DataSource {
     func getAll() -> [T]
     func getById(id: String) -> T
     func insert(item: T)
-    func update(by id: String, with name: String)
+    //func update(by id: String, with name: String)
     func clean()
     func delete(item: T)
     func deleteById(id: String)

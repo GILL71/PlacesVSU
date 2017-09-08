@@ -31,11 +31,6 @@ struct Constants {
         case no = "no"
     }
     
-    enum Mode: String {
-        case edit = "edit"
-        case create = "create"
-    }
-    
     enum Authorize: String {
         case yes = "yes"
         case no = "no"
@@ -67,18 +62,6 @@ struct Constants {
         default:
             return UIColor.brown
         }
-    }
-    
-    static func createPlaceButton(for place: Place) -> UIButton {
-        let button = UIButton(frame: CGRect(x: 20*place.x + 98, y: 20*place.y + 128, width: 20, height: 20))
-        button.layer.cornerRadius = 10
-        button.titleLabel?.font = UIFont(name: buttonFont, size: 11)
-        button.titleLabel?.textColor = UIColor.orange
-        button.layer.borderWidth = 2
-        button.layer.borderColor = UIColor.orange.cgColor
-        button.setTitle("\(place.num)", for: UIControlState(rawValue: 0))
-
-        return button
     }
     
     static func randomColor() -> String {
@@ -121,5 +104,4 @@ struct Constants {
             return "brown"
         }
     }
-
 }

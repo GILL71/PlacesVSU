@@ -28,7 +28,6 @@ class StartViewController: UIViewController, VKSdkDelegate, VKSdkUIDelegate {
         setUIProperties()
         
         UserDefaults.standard.set(Constants.GroupOrSingle.group.rawValue, forKey: Constants.groupOrSingleKey)
-        UserDefaults.standard.set(Constants.Mode.create.rawValue, forKey: Constants.modeKey)
     }
     //MARK: - Actions
     @IBAction func exitAction(_ sender: Any) {
@@ -36,7 +35,6 @@ class StartViewController: UIViewController, VKSdkDelegate, VKSdkUIDelegate {
     }
     
     @IBAction func authorizeVK(_ sender: UIButton) {
-        //setDelegates()
         serverInstance.enterVK()
         unlockTabs()
         UserDefaults.standard.set(Constants.Authorize.yes.rawValue, forKey: Constants.authorizeKey)
@@ -60,30 +58,6 @@ class StartViewController: UIViewController, VKSdkDelegate, VKSdkUIDelegate {
         serverInstance.sdkInstance?.uiDelegate = self as VKSdkUIDelegate
     }
     
-    // MARK: - VKSdkDelegate
-    
-    public func vkSdkAccessAuthorizationFinished(with result: VKAuthorizationResult!) {
-        guard let result = result.token else {
-            return
-        }
-        //UserDefaults.standard.set(result, forKey: "token")
-    }
-    
-    public func vkSdkUserAuthorizationFailed() {
-        print("vkSdkUserAuthorizationFailed")
-    }
-    
-    // MARK: - VKSdkUIDelegate
-    
-    public func vkSdkShouldPresent(_ controller: UIViewController!) {
-        self.present(controller, animated: true, completion: nil)
-    }
-    
-    public func vkSdkNeedCaptchaEnter(_ captchaError: VKError!) {
-        let vc: VKCaptchaViewController = VKCaptchaViewController.captchaControllerWithError(captchaError)
-        vc.present(in: self)
-    }
-    
     func setUIProperties() {
         imageView.image = UIImage(named: "ic_vk_logo_nb")
         vkEnter.tintColor = Constants.myColor
@@ -95,6 +69,27 @@ class StartViewController: UIViewController, VKSdkDelegate, VKSdkUIDelegate {
         noneEnter.layer.borderColor = Constants.myColor.cgColor
         noneEnter.layer.borderWidth = 2
         noneEnter.layer.cornerRadius = 7
+    }
+}
+
+extension StartViewController {
+    // MARK: - VKSdkUIDelegate
+    public func vkSdkShouldPresent(_ controller: UIViewController!) {
+        self.present(controller, animated: true, completion: nil)
+    }
+    public func vkSdkNeedCaptchaEnter(_ captchaError: VKError!) {
+        let vc: VKCaptchaViewController = VKCaptchaViewController.captchaControllerWithError(captchaError)
+        vc.present(in: self)
+    }
+    // MARK: - VKSdkDelegate
+    public func vkSdkAccessAuthorizationFinished(with result: VKAuthorizationResult!) {
+        guard let result = result.token else {
+            return
+        }
+        //UserDefaults.standard.set(result, forKey: "token")
+    }
+    public func vkSdkUserAuthorizationFailed() {
+        print("vkSdkUserAuthorizationFailed")
     }
 }
 

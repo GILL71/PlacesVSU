@@ -9,7 +9,6 @@ import VKSdkFramework
 import UIKit
 import Alamofire
 import AlamofireImage
-import CoreData
 
 extension ListViewController {
     enum FriendSectionType {
@@ -33,7 +32,7 @@ extension ListViewController {
 }
 
 class ListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-
+    
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet weak var listTableView: UITableView!
     @IBOutlet weak var cancelButton: UIBarButtonItem!
@@ -43,42 +42,48 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
     let friendCells: [FriendSectionType] = [.friend, .load]
     let messageCells: [MessageSectionType] = [.message, .load]
     let serverInstance = ServerManager()
-    let dataController = DataController.shared
-    
-    var selectedFriends = [Friend]()
-    var selectedIndexes: [String: Int] = [:]
-    var friends = [Friend]()
+    var friends = [Viewer]()
     var messages = [String]()
+
+    // var selectedFriends = [Friend]()
+    var selectedIndexes: [String: Int] = [:]
+    var selectedPlaces = [Place]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        listTableView.dataSource = self
-        serverInstance.loadMessages()
-        serverInstance.loadFriends()
-        
-        self.messages = serverInstance.messages
-        self.friends = serverInstance.friends
-        
+        serverInstance.loadMessages { response in
+            self.messages = response
+        }
+        serverInstance.loadFriends { response in
+            self.friends = response
+        }
         self.listTableView.allowsMultipleSelection = true
         
         segmentedControl.tintColor = Constants.myColor
-        //segmentedControl.numberOfSegments = segments.count
         cancelButton.tintColor = Constants.myColor
         
         listTableView.reloadData()
     }
     
     @IBAction func cancelAction(_ sender: UIBarButtonItem) {
-        UserDefaults.standard.set(Constants.PlaceAdded.no.rawValue, forKey: Constants.placeAdded)
+        //UserDefaults.standard.set(Constants.PlaceAdded.no.rawValue, forKey: Constants.placeAdded)
         dismiss(animated: true, completion: nil)
     }
     
     @IBAction func sourceChanged(_ sender: Any) {
-        self.messages = serverInstance.messages
-        self.friends = serverInstance.friends
         listTableView.reloadData()
     }
+    /*
+     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+     return 1
+     }
+     
+     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+     let cell = tableView.dequeueReusableCell(withIdentifier: "FriendTableViewCell", for: indexPath)
+     
+     return cell
+     
+     }*/
     
     // MARK: - UITableViewDataSource
     
@@ -92,6 +97,8 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
             return messageCells.count
         }
     }
+    
+    
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let segmentType = segments[segmentedControl.selectedSegmentIndex]
@@ -122,7 +129,7 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
         let model: CellViewAnyModel
         
         let segmentType = segments[segmentedControl.selectedSegmentIndex]
-    
+        
         switch
         (segmentType) {
         case .friend:
@@ -130,7 +137,7 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
             case .friend:
                 tableView.rowHeight = 71
                 let friend = friends[indexPath.row]
-                model = FriendTableViewCellModel(friend: friend)
+                model = FriendTableViewCellModel(viewer: friend)
             case .load:
                 model = LoadingTableViewCellModel()
             }
@@ -151,7 +158,6 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let segmentType = segments[segmentedControl.selectedSegmentIndex]
-
         switch
         (segmentType) {
         case .friend:
@@ -166,16 +172,18 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
                     selectedIndexes[String("\(indexPath.row)")] = indexPath.row
                 }
             case .load:
-                serverInstance.loadFriends()
-                self.friends = serverInstance.friends
+                serverInstance.loadFriends() { response in
+                    self.friends.append(contentsOf: response)
+                }
                 self.listTableView.reloadData()
             }
         case .message:
             let MsectionType = messageCells[indexPath.section]
             switch MsectionType {
             case .load:
-                self.messages = serverInstance.messages
-                serverInstance.loadMessages()
+                serverInstance.loadMessages() { response in
+                    self.messages.append(contentsOf: response)
+                }
                 self.listTableView.reloadData()
             case .message:
                 if tableView.cellForRow(at: indexPath)?.accessoryType == .checkmark {
@@ -186,29 +194,29 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
             }
         }
     }
-
+    
     @IBAction func doneAction(_ sender: Any) {
-        
-        print(selectedIndexes)
-        
-        for index in selectedIndexes.values {
-            selectedFriends.append(friends[index])
-            dataController.seedFriend(friend: friends[index])
-        }
-        
-        //UserDefaults.standard.setValue(selectedFriends, forKey: "friends")
-        
-        let row = UserDefaults.standard.object(forKey: Constants.rowKey) as? Int
-        let num = UserDefaults.standard.object(forKey: Constants.numKey) as? Int
-        
-        let place = Place.init(row: row!, num: num!)
-        dataController.seedPlace(place: place)
-        
-        //UserDefaults.standard.setValue(place, forKey: "places")
-
-        dataController.seedGroup(with:
-            UserDefaults.standard.object(forKey:
-                Constants.groupNameKey) as! String, color: Constants.randomColor(), place: place, friends: selectedFriends)
-        dismiss(animated: true, completion: nil)
-    }
+        /*
+         print(selectedIndexes)
+         
+         for index in selectedIndexes.values {
+         selectedFriends.append(friends[index])
+         dataController.seedFriend(friend: friends[index])
+         }
+         
+         //UserDefaults.standard.setValue(selectedFriends, forKey: "friends")
+         
+         let row = UserDefaults.standard.object(forKey: Constants.rowKey) as? Int
+         let num = UserDefaults.standard.object(forKey: Constants.numKey) as? Int
+         
+         let place = Place.init(row: row!, num: num!)
+         dataController.seedPlace(place: place)
+         
+         //UserDefaults.standard.setValue(place, forKey: "places")
+         
+         dataController.seedGroup(with:
+         UserDefaults.standard.object(forKey:
+         Constants.groupNameKey) as! String, color: Constants.randomColor(), place: place, friends: selectedFriends)
+         dismiss(animated: true, completion: nil)
+         */}
 }

@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import CoreData
+import RealmSwift
 
 extension GroupTableViewController {
     enum SectionType {
@@ -21,24 +21,20 @@ class GroupTableViewController: UITableViewController {
     @IBOutlet weak var infoButton: UIBarButtonItem!
     @IBOutlet weak var colorButton: UIBarButtonItem!
     
-    var groupsArray = [Groupa]()
+    let groups: Results<RealmGroup> = {
+        let realm = try! Realm()
+        return realm.objects(RealmGroup.self).sorted(byKeyPath: "name", ascending: true)
+    }()
     var selectedGroup: Int?
     var sections: [SectionType] = [.slider, .group]
     var sliderColor: String?
     
-    //let moc = DataController().managedObjectContext
-    let dataController = DataController.shared
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        groupsArray = dataController.fetchGroup()
         colorButton.tintColor = UIColor.lightGray
-        tableView.dataSource = self
     }
 
     // MARK: - Table view data source
-
     override func numberOfSections(in tableView: UITableView) -> Int {
         return sections.count
     }
@@ -49,8 +45,9 @@ class GroupTableViewController: UITableViewController {
         case .slider:
             return 1
         case .group:
-            return groupsArray.count
+            return groups.count
         }
+ 
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -61,8 +58,8 @@ class GroupTableViewController: UITableViewController {
         case .slider:
             model = SliderTableViewCellModel()
         case .group:
-            let group = groupsArray[indexPath.row]
-            model = GroupTableViewCellModel(group: group)
+            let group = groups[indexPath.row]
+            model = GroupTableViewCellModel(group: group.entity)
         }
         return tableView.dequeueReusableCell(withModel: model, for: indexPath)
     }
@@ -85,19 +82,19 @@ class GroupTableViewController: UITableViewController {
     }
     
     @IBAction func colorButtonPressed(_ sender: Any) {
-        
+        /*
         if let groupSelected = selectedGroup {
-            dataController.updateGroup(with: groupsArray[groupSelected], and: sliderColor!)
+            //dataController.updateGroup(with: groupsArray[groupSelected], and: sliderColor!)
         } else {
             print("SMTHNG WRONG: no selected group")
         }
-        tableView.reloadData()
+        tableView.reloadData()*/
     }
     
     @IBAction func infoButtonPressed(_ sender: Any) {
         infoButton.tintColor = UIColor.gray
         colorButton.tintColor = UIColor.blue
-        
+        /*
         var list = ""
         var f: Viewer
         for y in groupsArray[selectedGroup!].viewersRelation! {
@@ -113,7 +110,7 @@ class GroupTableViewController: UITableViewController {
             (UIAlertAction)in
             self.dataController.removeGroupWith(name: self.groupsArray[self.selectedGroup! - 1])
         }))
-        self.present(alert, animated: true, completion: nil)
+        self.present(alert, animated: true, completion: nil)*/
     }
     @IBAction func sliderValueChanged(_ sender: UISlider) {
         //если группу выделена - свич кейс

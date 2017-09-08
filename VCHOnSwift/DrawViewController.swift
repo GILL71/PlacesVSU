@@ -11,7 +11,7 @@ import CoreData
 
 class DrawViewController: UIViewController, UIScrollViewDelegate {
     // MARK: - Properties
-
+/*
     var pressedButton: UIButton?
     let dataController = DataController.shared
     //var groupsArray = [Groupa]()
@@ -292,14 +292,5 @@ class DrawViewController: UIViewController, UIScrollViewDelegate {
         }
         return false
     }
-}
-
-extension UIColor {
-    class func color(withData data:Data) -> UIColor {
-        return NSKeyedUnarchiver.unarchiveObject(with: data) as! UIColor
-    }
-    
-    func encode() -> Data {
-        return NSKeyedArchiver.archivedData(withRootObject: self)
-    }
+    */
 }
