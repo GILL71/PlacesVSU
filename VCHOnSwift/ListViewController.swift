@@ -9,6 +9,7 @@ import VKSdkFramework
 import UIKit
 import Alamofire
 import AlamofireImage
+import RealmSwift
 
 extension ListViewController {
     enum FriendSectionType {
@@ -36,8 +37,11 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet weak var listTableView: UITableView!
     @IBOutlet weak var cancelButton: UIBarButtonItem!
+    weak var AddAlertSaveAction: UIAlertAction?
     
     let segments: [SegmentType] = [.friend, .message]
+    
+    var groupStorage = GroupRealmDataSource()
     
     let friendCells: [FriendSectionType] = [.friend, .load]
     let messageCells: [MessageSectionType] = [.message, .load]
@@ -45,7 +49,6 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
     var friends = [Viewer]()
     var messages = [String]()
 
-    // var selectedFriends = [Friend]()
     var selectedIndexes: [String: Int] = [:]
     var selectedPlaces = [Place]()
     
@@ -60,14 +63,7 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
         self.listTableView.allowsMultipleSelection = true
         
         segmentedControl.tintColor = Constants.myColor
-        cancelButton.tintColor = Constants.myColor
-        
         listTableView.reloadData()
-    }
-    
-    @IBAction func cancelAction(_ sender: UIBarButtonItem) {
-        //UserDefaults.standard.set(Constants.PlaceAdded.no.rawValue, forKey: Constants.placeAdded)
-        dismiss(animated: true, completion: nil)
     }
     
     @IBAction func sourceChanged(_ sender: Any) {
@@ -97,8 +93,6 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
             return messageCells.count
         }
     }
-    
-    
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let segmentType = segments[segmentedControl.selectedSegmentIndex]
@@ -196,27 +190,65 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     @IBAction func doneAction(_ sender: Any) {
-        /*
-         print(selectedIndexes)
-         
-         for index in selectedIndexes.values {
-         selectedFriends.append(friends[index])
-         dataController.seedFriend(friend: friends[index])
-         }
-         
-         //UserDefaults.standard.setValue(selectedFriends, forKey: "friends")
-         
-         let row = UserDefaults.standard.object(forKey: Constants.rowKey) as? Int
-         let num = UserDefaults.standard.object(forKey: Constants.numKey) as? Int
-         
-         let place = Place.init(row: row!, num: num!)
-         dataController.seedPlace(place: place)
-         
-         //UserDefaults.standard.setValue(place, forKey: "places")
-         
-         dataController.seedGroup(with:
-         UserDefaults.standard.object(forKey:
-         Constants.groupNameKey) as! String, color: Constants.randomColor(), place: place, friends: selectedFriends)
-         dismiss(animated: true, completion: nil)
-         */}
+      
+        //set up the alertcontroller
+        let title = NSLocalizedString("New Prescription", comment: "")
+        let message = NSLocalizedString("Insert a name for this prescription.", comment: "")
+        let cancelButtonTitle = NSLocalizedString("Cancel", comment: "")
+        let otherButtonTitle = NSLocalizedString("Save", comment: "")
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        // Add the text field with handler
+        alertController.addTextField { textField in
+            //listen for changes
+            NotificationCenter.default.addObserver(self, selector: #selector(self.handleTextFieldTextDidChangeNotification), name: NSNotification.Name.UITextFieldTextDidChange, object: textField)
+        }
+        func removeTextFieldObserver() {
+            NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UITextFieldTextDidChange, object: alertController.textFields?[0])
+        }
+        // Create the actions.
+        let cancelAction = UIAlertAction(title: cancelButtonTitle, style: .cancel) { action in
+            removeTextFieldObserver()
+        }
+        let saveAction = UIAlertAction(title: otherButtonTitle, style: .default) { action in
+            var viewers = [Viewer]()
+            for index in self.selectedIndexes {
+                viewers.append(self.friends[index.value])
+            }
+            let groupName = alertController.textFields?[0].text
+            let color = self.getRandomColor()
+            self.groupStorage.insert(item: Group(name: groupName!,
+                                                 color: color.encode(),
+                                                 places: self.selectedPlaces,
+                                                 viewers: viewers))
+            removeTextFieldObserver()
+            self.navigationController?.popToRootViewController(animated: true)
+        }
+        // disable the 'save' button (otherAction) initially
+        saveAction.isEnabled = false
+        // save the other action to toggle the enabled/disabled state when the text changed.
+        AddAlertSaveAction = saveAction
+        alertController.addAction(cancelAction)
+        alertController.addAction(saveAction)
+    }
+    
+    func configurationTextField(textField: UITextField!){
+        textField.placeholder = "Name"
+    }
+    
+    func handleTextFieldTextDidChangeNotification(sender: NSNotification) {
+        let textField = sender.object as! UITextField
+        AddAlertSaveAction!.isEnabled = (textField.text?.characters.count)! > 0
+    }
+    
+    func getRandomColor() -> UIColor{
+        
+        let randomRed: CGFloat = CGFloat(drand48())
+        
+        let randomGreen: CGFloat = CGFloat(drand48())
+        
+        let randomBlue: CGFloat = CGFloat(drand48())
+        
+        return UIColor(red: randomRed, green: randomGreen, blue: randomBlue, alpha: 1.0)
+        
+    }
 }

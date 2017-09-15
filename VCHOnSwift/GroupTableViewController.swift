@@ -51,7 +51,6 @@ class GroupTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         let sectionType = sections[indexPath.section]
         let model: CellViewAnyModel
         switch sectionType {
@@ -112,6 +111,7 @@ class GroupTableViewController: UITableViewController {
         }))
         self.present(alert, animated: true, completion: nil)*/
     }
+    
     @IBAction func sliderValueChanged(_ sender: UISlider) {
         //если группу выделена - свич кейс
         //иначе - надо зафризить слайдер, чтбы не двигался

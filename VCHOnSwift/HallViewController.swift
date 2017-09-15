@@ -23,18 +23,14 @@ class HallViewController: UIViewController, UIScrollViewDelegate {
     }
     
     @IBAction func createAction(_ sender: UIBarButtonItem) {
-        //placesManager?.createGroup()
-        self.performSegue(withIdentifier: "segue_create_group", sender: self)
-            //пушим liistVC, передавая ему количество выбраных мест - placesManager.pressedButtons.count
+        placesManager?.createGroup()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-         if segue.identifier == "segue_create_group" {
         if let destinationViewController = segue.destination as? ListViewController {
             for button in (placesManager?.pressedButtons)! {
                 destinationViewController.selectedPlaces.append(button.place)
             }
-        }
         }
     }
 
@@ -48,7 +44,6 @@ class HallViewController: UIViewController, UIScrollViewDelegate {
         btnGradient.frame = self.testView.bounds
         btnGradient.colors = [gradientColor1, gradientColor2]
         
-        //createPlaces()
         placesManager!.createPlaces()
         scrollViewScale(view: self)
         

@@ -8,7 +8,7 @@
 
 import UIKit
 import VKSdkFramework
-import CoreData
+import RealmSwift
 
 class StartViewController: UIViewController, VKSdkDelegate, VKSdkUIDelegate {
     //MARK: - Properties
@@ -19,10 +19,31 @@ class StartViewController: UIViewController, VKSdkDelegate, VKSdkUIDelegate {
     @IBOutlet weak var vkEnter: UIButton!
     @IBOutlet weak var noneEnter: UIButton!
     
+    let viewers: Results<RealmViewer> = {
+        let realm = try! Realm()
+        return realm.objects(RealmViewer.self).sorted(byKeyPath: "imageURL", ascending: true)
+    }()
+    let places: Results<RealmPlace> = {
+        let realm = try! Realm()
+        return realm.objects(RealmPlace.self)
+    }()
+    let groups: Results<RealmGroup> = {
+        let realm = try! Realm()
+        return realm.objects(RealmGroup.self)
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setDelegates()
-
+/*
+        let storageP = PlaceRealmDataSource()
+        storageP.clean()
+        let storageV = ViewerRealmDataSource()
+        storageV.clean()
+        let storageF = GroupRealmDataSource()
+        storageF.clean()
+        */
+        
         self.tabBarController?.tabBar.items?[1].isEnabled = false
         self.tabBarController?.tabBar.items?[2].isEnabled = false
         setUIProperties()

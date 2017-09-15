@@ -63,7 +63,7 @@ class PlacesManager {
                                               message: "Введите имя группы",
                                               preferredStyle: UIAlertControllerStyle.alert)
                 alert.addTextField(configurationHandler: self.configurationTextField)
-                alert.addAction(UIAlertAction(title: "Добавить", style: UIAlertActionStyle.default, handler:{ (UIAlertAction)in
+                alert.addAction(UIAlertAction(title: "Добавить", style: UIAlertActionStyle.default, handler: { (UIAlertAction)in
                     print("\(String(describing: alert.textFields?[0].text)) - added")
                     //ЗАНЕСТИ ИМЕНА В БАЗУ
                     self.controller.present(alert, animated: true, completion: nil)
@@ -76,97 +76,6 @@ class PlacesManager {
         }
     }
     
-    // FORGOTTEN
-    @objc func placeAction(sender: UIButton!) {
-        let title = String(describing: sender.titleLabel!.text!)
-        let actionSheetController = UIAlertController(title: title, message: "Хотите добавить группу или одного человека?", preferredStyle: .actionSheet)
-        
-        let cancelAction = UIAlertAction(title: "Назад", style: .cancel) { action -> Void in
-        }
-        actionSheetController.addAction(cancelAction)
-        
-        //GROUP
-        let createGroupAction = UIAlertAction(title: "Группа", style: .default) { action -> Void in
-            UserDefaults.standard.set(Constants.GroupOrSingle.group.rawValue, forKey: Constants.groupOrSingleKey)
-            if UserDefaults.standard.object(forKey: Constants.authorizeKey) as! String == Constants.Authorize.no.rawValue {
-                self.createGroupForNonauthorizedState()
-            } else {
-                self.createGroupForAuthorizedState()
-            }
-        }
-        actionSheetController.addAction(createGroupAction)
-        
-        //PLACE
-        let createPlaceAction = UIAlertAction(title: "Один человек", style: .default) { action -> Void in
-            UserDefaults.standard.set(Constants.GroupOrSingle.single.rawValue, forKey: Constants.groupOrSingleKey)
-            if UserDefaults.standard.object(forKey: Constants.authorizeKey) as! String == Constants.Authorize.no.rawValue {
-                self.createPlaceForNonauthorizedState()
-            } else {
-                self.controller.performSegue(withIdentifier: "segue_create_group", sender: self)
-            }
-        }
-        actionSheetController.addAction(createPlaceAction)
-        
-        actionSheetController.popoverPresentationController?.sourceView = sender as UIView
-        controller.present(actionSheetController, animated: true, completion: nil)
-    }
-    
-    // MARK: - GroupAction
-    func createGroupForNonauthorizedState() {
-        let alert = UIAlertController(title: "", message: "Введите имя группы", preferredStyle: UIAlertControllerStyle.alert)
-        
-        alert.addTextField(configurationHandler: self.configurationTextField)
-        
-        alert.addAction(UIAlertAction(title: "Добавить", style: UIAlertActionStyle.default, handler:{ (UIAlertAction)in
-            
-            print("\(String(describing: alert.textFields?[0].text)) - added")
-            
-            //добавление в базу
-            
-            self.controller.present(alert, animated: true, completion: nil)
-            
-        }))
-        alert.addAction(UIAlertAction(title: "Назад", style: UIAlertActionStyle.default, handler:nil))
-        
-        controller.present(alert, animated: true, completion: nil)
-    }
-    
-    func createGroupForAuthorizedState() {
-        let alert = UIAlertController(title: "", message: "Введите имя группы", preferredStyle: UIAlertControllerStyle.alert)
-        
-        alert.addTextField(configurationHandler: self.configurationTextField)
-        
-        alert.addAction(UIAlertAction(title: "Добавить", style: UIAlertActionStyle.default, handler:{ (UIAlertAction)in
-            
-            print("\(String(describing: alert.textFields?[0].text)) - added")
-            
-            //self.dataController.seedGroup(with: (alert.textFields?[0].text)!, color: self.randomColor())
-            //больше это не здесь, я передумал
-            UserDefaults.standard.setValue(alert.textFields?[0].text, forKey: Constants.groupNameKey)
-            
-            self.controller.performSegue(withIdentifier: "segue_create_group", sender: self)
-            
-        }))
-        alert.addAction(UIAlertAction(title: "Назад", style: UIAlertActionStyle.default, handler:nil))
-        
-        controller.present(alert, animated: true, completion: nil)
-    }
-    // MARK: - PlaceAction
-    func createPlaceForNonauthorizedState() {
-        let alert = UIAlertController(title: "", message: "Введите имя", preferredStyle: UIAlertControllerStyle.alert)
-        
-        alert.addTextField(configurationHandler: self.configurationTextField)
-        
-        alert.addAction(UIAlertAction(title: "Добавить", style: UIAlertActionStyle.default, handler:{ (UIAlertAction) in
-            print("User click Ok button")
-            //здесь надо передать номер места (в кнопке) и ряд (как????)
-            //  let p = Place.init(row: row, num: num)
-        }))
-        alert.addAction(UIAlertAction(title: "Назад", style: UIAlertActionStyle.default, handler:nil))
-        
-        controller.present(alert, animated: true, completion: nil)
-    }
-
     func configurationTextField(textField: UITextField!){
         textField.placeholder = "Name"
     }
